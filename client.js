@@ -2,8 +2,8 @@ const FLAGS_KEY = 'flags';
 const NO_FLAGS = { urgent: false, bug: false };
 
 const MARKS = [
-  { key: 'urgent', label: 'Acil', icon: './icons/urgent.svg', badgeText: 'ACİL' },
-  { key: 'bug', label: 'Bug', icon: './icons/bug.svg', badgeText: 'BUG' },
+  { key: 'urgent', label: 'Acil', icon: './icons/urgent.svg', badgeText: 'ACİL', badgeColor: 'red' },
+  { key: 'bug', label: 'Bug', icon: './icons/bug.svg', badgeText: 'BUG', badgeColor: 'purple' },
 ];
 
 function readFlags(t) {
@@ -34,7 +34,12 @@ async function openMarkPopup(t) {
 window.TrelloPowerUp.initialize({
   'card-badges': async t => {
     const flags = await readFlags(t);
-    return activeMarks(flags).map(mark => ({ icon: mark.icon, monochrome: false }));
+    return activeMarks(flags).map(mark => ({
+      icon: mark.icon,
+      text: mark.badgeText,
+      color: mark.badgeColor,
+      monochrome: false,
+    }));
   },
 
   'card-detail-badges': async t => {
@@ -43,6 +48,7 @@ window.TrelloPowerUp.initialize({
       title: 'İşaret',
       text: mark.badgeText,
       icon: mark.icon,
+      color: mark.badgeColor,
       monochrome: false,
       callback: openMarkPopup,
     }));
