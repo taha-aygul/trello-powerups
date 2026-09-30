@@ -1,63 +1,38 @@
-const MARKS_KEY = 'marks';
 const COMPACT_KEY = 'compact';
+const SHADE_SUFFIX = /_(dark|light)$/;
 
-const MARKS = [
-  { key: 'urgent', label: 'ACİL', color: 'red', icon: './icons/urgent.svg' },
-  { key: 'bug', label: 'BUG', color: 'pink', icon: './icons/bug.svg' },
-  { key: 'important', label: 'ÖNEMLİ', color: 'orange' },
-  { key: 'mechanic', label: 'MECHANIC', color: 'blue' },
-  { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'green' },
-  { key: 'qualityOfLife', label: 'QUALITY OF LIFE', color: 'lime' },
-  { key: 'backend', label: 'BACKEND', color: 'sky' },
-  { key: 'art', label: 'ART', color: 'purple' },
-  { key: 'performance', label: 'PERFORMANCE', color: 'yellow' },
-  { key: 'niceToHave', label: 'NICE TO HAVE', color: 'light-gray' },
-];
+const ICONS = {
+  acil: './icons/urgent.svg',
+  bug: './icons/bug.svg',
+  bugfix: './icons/bug.svg',
+};
 
-function readMarks(t) {
-  return t.get('card', 'shared', MARKS_KEY, []);
+function baseHue(labelColor) {
+  return labelColor ? labelColor.replace(SHADE_SUFFIX, '') : 'light-gray';
+}
+
+function iconFor(labelName) {
+  return ICONS[labelName.toLocaleLowerCase('tr')];
 }
 
 function readCompact(t) {
   return t.get('member', 'private', COMPACT_KEY, false);
 }
 
-function activeMarks(keys) {
-  return MARKS.filter(mark => keys.includes(mark.key));
+function namedLabels(labels) {
+  return labels.filter(label => label.name && label.name.trim().length > 0);
 }
 
-function badgeFor(mark, compact) {
+function badgeFor(label, compact) {
   if (compact) {
-    return { color: mark.color };
+    return { color: baseHue(label.color) };
   }
-  return { text: mark.label, color: mark.color, icon: mark.icon, monochrome: false };
-}
-
-async function toggleMark(t, key) {
-  const keys = await readMarks(t);
-  const next = keys.includes(key) ? keys.filter(item => item !== key) : [...keys, key];
-  await t.set('card', 'shared', MARKS_KEY, next);
-  return t.closePopup();
-}
-
-async function openMarkPopup(t) {
-  const [keys, compact] = await Promise.all([readMarks(t), readCompact(t)]);
-  return t.popup({
-    title: 'İşaretler',
-    items: [
-      ...MARKS.map(mark => ({
-        text: `${keys.includes(mark.key) ? '✓ ' : ''}${mark.label}`,
-        callback: popupT => toggleMark(popupT, mark.key),
-        alwaysVisible: false,
-      })),
-      {
-        text: compact ? '⤢  Geniş göster — renk ve yazı' : '⤡  Dar göster — sadece renk',
-        callback: popupT => setCompact(popupT, !compact),
-        alwaysVisible: true,
-      },
-    ],
-    search: { placeholder: 'İşaret ara', empty: 'Eşleşen işaret yok' },
-  });
+  return {
+    text: label.name.toLocaleUpperCase('tr'),
+    color: baseHue(label.color),
+    icon: iconFor(label.name),
+    monochrome: false,
+  };
 }
 
 async function setCompact(t, compact) {
@@ -65,7 +40,7 @@ async function setCompact(t, compact) {
   return t.closePopup();
 }
 
-async function openBoardPopup(t) {
+async function openViewPopup(t) {
   const compact = await readCompact(t);
   return t.popup({
     title: 'İşaret görünümü',
@@ -78,35 +53,27 @@ async function openBoardPopup(t) {
 
 window.TrelloPowerUp.initialize({
   'card-badges': async t => {
-    const [keys, compact] = await Promise.all([readMarks(t), readCompact(t)]);
-    return activeMarks(keys).map(mark => badgeFor(mark, compact));
+    const [labels, compact] = await Promise.all([t.card('labels').get('labels'), readCompact(t)]);
+    return namedLabels(labels).map(label => badgeFor(label, compact));
   },
 
   'card-detail-badges': async t => {
-    const keys = await readMarks(t);
-    return activeMarks(keys).map(mark => ({
+    const labels = await t.card('labels').get('labels');
+    return namedLabels(labels).map(label => ({
       title: 'İşaret',
-      text: mark.label,
-      color: mark.color,
-      icon: mark.icon,
+      text: label.name.toLocaleUpperCase('tr'),
+      color: baseHue(label.color),
+      icon: iconFor(label.name),
       monochrome: false,
-      callback: openMarkPopup,
+      callback: openViewPopup,
     }));
   },
-
-  'card-buttons': () => [
-    {
-      icon: './icons/button.svg',
-      text: 'İşaretler',
-      callback: openMarkPopup,
-    },
-  ],
 
   'board-buttons': () => [
     {
       icon: './icons/button.svg',
       text: 'İşaret görünümü',
-      callback: openBoardPopup,
+      callback: openViewPopup,
     },
   ],
 });
