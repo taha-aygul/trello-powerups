@@ -11,6 +11,7 @@ const MARKS = [
   { key: 'backend', label: 'BACKEND', color: 'sky', icon: './icons/backend.svg' },
   { key: 'art', label: 'ART', color: 'purple', icon: './icons/art.svg' },
   { key: 'performance', label: 'PERFORMANCE', color: 'yellow', icon: './icons/performance.svg' },
+  { key: 'newFeature', label: 'NEW FEATURE', color: 'green', icon: './icons/newFeature.svg' },
   { key: 'niceToHave', label: 'NICE TO HAVE', color: 'light-gray', icon: './icons/niceToHave.svg' },
 ];
 
