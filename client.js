@@ -6,7 +6,7 @@ const MARKS = [
   { key: 'bug', label: 'BUG', color: 'pink', icon: './icons/bug.svg' },
   { key: 'important', label: 'ÖNEMLİ', color: 'orange', icon: './icons/important.svg' },
   { key: 'mechanic', label: 'MECHANIC', color: 'blue', icon: './icons/mechanic.svg' },
-  { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'green', icon: './icons/levelDesign.svg' },
+  { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'sky', icon: './icons/levelDesign.svg' },
   { key: 'qualityOfLife', label: 'QUALITY OF LIFE', color: 'lime', icon: './icons/qualityOfLife.svg' },
   { key: 'backend', label: 'BACKEND', color: 'sky', icon: './icons/backend.svg' },
   { key: 'art', label: 'ART', color: 'purple', icon: './icons/art.svg' },
