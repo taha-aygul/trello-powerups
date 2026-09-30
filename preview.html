@@ -2,78 +2,67 @@
 <html lang="tr">
   <head>
     <meta charset="utf-8" />
-    <title>Cover önizleme</title>
+    <title>İşaret önizleme</title>
     <style>
       body { margin: 0; font: 14px -apple-system, Segoe UI, system-ui, sans-serif; background: #1d2125; color: #b6c2cf; padding: 20px; }
-      .row { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
-      .col { width: 260px; }
-      h2 { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; margin: 0 0 10px; font-weight: 600; }
-      .card { width: 256px; border-radius: 8px; overflow: hidden; background: #22272b; box-shadow: 0 1px 1px #00000052; margin-bottom: 16px; }
-      .body { padding: 10px 12px; }
-      .labels { display: flex; gap: 4px; margin-bottom: 8px; }
-      .label { height: 16px; border-radius: 4px; padding: 0 8px; font-size: 12px; font-weight: 700; line-height: 16px; }
-      .title { font-size: 14px; line-height: 20px; color: #b6c2cf; margin-bottom: 8px; }
-      .badges { display: flex; align-items: center; gap: 6px; }
-      .eye { width: 16px; height: 16px; border: 1.6px solid #9fadbc; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; opacity: .7; }
-
-      .cover-color { height: 34px; background: #C9372C; }
-
-      .cover-normal { height: 78px; background: linear-gradient(100deg, #B3261E 0%, #E2483D 100%); display: flex; align-items: center; gap: 12px; padding: 0 16px; }
-      .cover-normal .mark { font-size: 44px; font-weight: 900; color: #fff; line-height: 1; }
-      .cover-normal .word { font-size: 22px; font-weight: 800; letter-spacing: .12em; color: #fff; }
-
-      .cover-full { height: 132px; background: linear-gradient(100deg, #B3261E 0%, #E2483D 100%); position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 14px 16px; }
-      .cover-full .mark { position: absolute; right: 10px; top: -14px; font-size: 116px; font-weight: 900; color: rgba(255,255,255,.22); line-height: 1; }
-      .cover-full .word { font-size: 13px; font-weight: 800; letter-spacing: .16em; color: rgba(255,255,255,.85); margin-bottom: 6px; }
-      .cover-full .name { font-size: 15px; font-weight: 700; line-height: 20px; color: #fff; position: relative; }
-
-      .cover-bug { background: linear-gradient(100deg, #4C1D95 0%, #7C4DD6 100%); }
-      .stripe { height: 8px; background: #C9372C; }
+      h2 { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .5; margin: 0 0 10px; }
+      .card { width: 262px; border-radius: 8px; padding: 10px 12px; background: #22272b; box-shadow: 0 1px 1px #00000052; margin-bottom: 14px; }
+      .title { font-size: 14px; line-height: 20px; margin-bottom: 8px; }
+      .badges { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+      .pill { display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 4px; font-size: 11px; font-weight: 700; color: #fff; }
+      .pill img { width: 13px; height: 13px; display: block; }
+      .swatch { width: 18px; height: 12px; border-radius: 3px; display: block; }
+      .row { display: flex; gap: 26px; align-items: flex-start; }
+      .big { display: flex; flex-wrap: wrap; gap: 14px; max-width: 560px; }
+      .big figure { margin: 0; width: 84px; text-align: center; }
+      .big .sq { width: 56px; height: 56px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; }
+      .big img { width: 34px; height: 34px; }
+      .big figcaption { font-size: 10px; opacity: .6; }
     </style>
   </head>
   <body>
     <div class="row">
-      <div class="col">
-        <h2>1 · Renk cover (kod yok, bugün)</h2>
+      <div>
+        <h2>Geniş — kart üstünde</h2>
         <div class="card">
-          <div class="cover-color"></div>
-          <div class="body">
-            <div class="labels"><span class="label" style="background:#4a4a4a;color:#dcdfe4">nice to have</span></div>
-            <div class="title">Level 1-5 level complete atlayan sekans sistemi</div>
-            <div class="badges"><div class="eye"></div></div>
-          </div>
+          <div class="title">Level 1-5 level complete atlayan sekans sistemi</div>
+          <div class="badges" id="wide"></div>
+        </div>
+        <h2>Dar — sadece renk</h2>
+        <div class="card">
+          <div class="title">Level 1-5 level complete atlayan sekans sistemi</div>
+          <div class="badges" id="narrow"></div>
         </div>
       </div>
-
-      <div class="col">
-        <h2>2 · Görsel cover — normal</h2>
-        <div class="card">
-          <div class="cover-normal"><span class="mark">!</span><span class="word">ACİL</span></div>
-          <div class="body">
-            <div class="labels"><span class="label" style="background:#4a4a4a;color:#dcdfe4">nice to have</span></div>
-            <div class="title">Level 1-5 level complete atlayan sekans sistemi</div>
-            <div class="badges"><div class="eye"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <h2>3 · Görsel cover — full</h2>
-        <div class="card">
-          <div class="cover-full">
-            <span class="mark">!</span>
-            <span class="word">ACİL</span>
-            <span class="name">Level 1-5 level complete atlayan sekans sistemi</span>
-          </div>
-        </div>
-        <div class="card">
-          <div class="cover-full cover-bug">
-            <span class="mark">&#9679;</span>
-            <span class="word">BUG</span>
-            <span class="name">Arabalar çarptıktan sonra kırmızı olacak</span>
-          </div>
-        </div>
+      <div>
+        <h2>İkonlar büyük</h2>
+        <div class="big" id="big"></div>
       </div>
     </div>
+    <script>
+      const MARKS = [
+        { label: 'ACİL', color: 'red', hex: '#C9372C', icon: 'urgent' },
+        { label: 'BUG', color: 'pink', hex: '#E774BB', icon: 'bug' },
+        { label: 'ÖNEMLİ', color: 'orange', hex: '#FEA362', icon: 'important' },
+        { label: 'MECHANIC', color: 'blue', hex: '#579DFF', icon: 'mechanic' },
+        { label: 'LEVEL DESIGN', color: 'green', hex: '#4BCE97', icon: 'levelDesign' },
+        { label: 'QUALITY OF LIFE', color: 'lime', hex: '#94C748', icon: 'qualityOfLife' },
+        { label: 'BACKEND', color: 'sky', hex: '#6CC3E0', icon: 'backend' },
+        { label: 'ART', color: 'purple', hex: '#8270DB', icon: 'art' },
+        { label: 'PERFORMANCE', color: 'yellow', hex: '#E2B203', icon: 'performance' },
+        { label: 'NICE TO HAVE', color: 'light-gray', hex: '#8C9BAB', icon: 'niceToHave' },
+      ];
+      const wide = document.getElementById('wide');
+      const narrow = document.getElementById('narrow');
+      const big = document.getElementById('big');
+      for (const mark of MARKS) {
+        wide.insertAdjacentHTML('beforeend',
+          `<span class="pill" style="background:${mark.hex}"><img src="./icons/${mark.icon}.svg"/>${mark.label}</span>`);
+        narrow.insertAdjacentHTML('beforeend',
+          `<img class="swatch" src="./icons/dot-${mark.color}.svg"/>`);
+        big.insertAdjacentHTML('beforeend',
+          `<figure><div class="sq" style="background:${mark.hex}"><img src="./icons/${mark.icon}.svg"/></div><figcaption>${mark.label}</figcaption></figure>`);
+      }
+    </script>
   </body>
 </html>

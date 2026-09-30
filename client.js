@@ -4,14 +4,14 @@ const COMPACT_KEY = 'compact';
 const MARKS = [
   { key: 'urgent', label: 'ACİL', color: 'red', icon: './icons/urgent.svg' },
   { key: 'bug', label: 'BUG', color: 'pink', icon: './icons/bug.svg' },
-  { key: 'important', label: 'ÖNEMLİ', color: 'orange' },
-  { key: 'mechanic', label: 'MECHANIC', color: 'blue' },
-  { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'green' },
-  { key: 'qualityOfLife', label: 'QUALITY OF LIFE', color: 'lime' },
-  { key: 'backend', label: 'BACKEND', color: 'sky' },
-  { key: 'art', label: 'ART', color: 'purple' },
-  { key: 'performance', label: 'PERFORMANCE', color: 'yellow' },
-  { key: 'niceToHave', label: 'NICE TO HAVE', color: 'light-gray' },
+  { key: 'important', label: 'ÖNEMLİ', color: 'orange', icon: './icons/important.svg' },
+  { key: 'mechanic', label: 'MECHANIC', color: 'blue', icon: './icons/mechanic.svg' },
+  { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'green', icon: './icons/levelDesign.svg' },
+  { key: 'qualityOfLife', label: 'QUALITY OF LIFE', color: 'lime', icon: './icons/qualityOfLife.svg' },
+  { key: 'backend', label: 'BACKEND', color: 'sky', icon: './icons/backend.svg' },
+  { key: 'art', label: 'ART', color: 'purple', icon: './icons/art.svg' },
+  { key: 'performance', label: 'PERFORMANCE', color: 'yellow', icon: './icons/performance.svg' },
+  { key: 'niceToHave', label: 'NICE TO HAVE', color: 'light-gray', icon: './icons/niceToHave.svg' },
 ];
 
 function readMarks(t) {
