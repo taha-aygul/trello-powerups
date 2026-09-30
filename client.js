@@ -3,13 +3,13 @@ const COMPACT_KEY = 'compact';
 
 const MARKS = [
   { key: 'urgent', label: 'ACİL', color: 'red', icon: './icons/urgent.svg' },
-  { key: 'bug', label: 'BUG', color: 'purple', icon: './icons/bug.svg' },
+  { key: 'bug', label: 'BUG', color: 'pink', icon: './icons/bug.svg' },
   { key: 'important', label: 'ÖNEMLİ', color: 'orange' },
   { key: 'mechanic', label: 'MECHANIC', color: 'blue' },
   { key: 'levelDesign', label: 'LEVEL DESIGN', color: 'green' },
   { key: 'qualityOfLife', label: 'QUALITY OF LIFE', color: 'lime' },
   { key: 'backend', label: 'BACKEND', color: 'sky' },
-  { key: 'art', label: 'ART', color: 'pink' },
+  { key: 'art', label: 'ART', color: 'purple' },
   { key: 'performance', label: 'PERFORMANCE', color: 'yellow' },
   { key: 'niceToHave', label: 'NICE TO HAVE', color: 'light-gray' },
 ];
@@ -41,13 +41,21 @@ async function toggleMark(t, key) {
 }
 
 async function openMarkPopup(t) {
-  const keys = await readMarks(t);
+  const [keys, compact] = await Promise.all([readMarks(t), readCompact(t)]);
   return t.popup({
     title: 'İşaretler',
-    items: MARKS.map(mark => ({
-      text: `${keys.includes(mark.key) ? '✓ ' : ''}${mark.label}`,
-      callback: popupT => toggleMark(popupT, mark.key),
-    })),
+    items: [
+      ...MARKS.map(mark => ({
+        text: `${keys.includes(mark.key) ? '✓ ' : ''}${mark.label}`,
+        callback: popupT => toggleMark(popupT, mark.key),
+        alwaysVisible: false,
+      })),
+      {
+        text: compact ? '⤢  Geniş göster — renk ve yazı' : '⤡  Dar göster — sadece renk',
+        callback: popupT => setCompact(popupT, !compact),
+        alwaysVisible: true,
+      },
+    ],
     search: { placeholder: 'İşaret ara', empty: 'Eşleşen işaret yok' },
   });
 }
