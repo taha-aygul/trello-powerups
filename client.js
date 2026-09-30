@@ -26,11 +26,20 @@ function activeMarks(keys) {
   return MARKS.filter(mark => keys.includes(mark.key));
 }
 
+function assetUrl(relativePath) {
+  return new URL(relativePath, window.location.href).href;
+}
+
 function badgeFor(mark, compact) {
   if (compact) {
-    return { color: mark.color };
+    return { icon: assetUrl(`./icons/dot-${mark.color}.svg`), monochrome: false };
   }
-  return { text: mark.label, color: mark.color, icon: mark.icon, monochrome: false };
+  return {
+    text: mark.label,
+    color: mark.color,
+    icon: mark.icon ? assetUrl(mark.icon) : undefined,
+    monochrome: false,
+  };
 }
 
 async function toggleMark(t, key) {
@@ -88,7 +97,7 @@ window.TrelloPowerUp.initialize({
       title: 'İşaret',
       text: mark.label,
       color: mark.color,
-      icon: mark.icon,
+      icon: mark.icon ? assetUrl(mark.icon) : undefined,
       monochrome: false,
       callback: openMarkPopup,
     }));
@@ -96,7 +105,7 @@ window.TrelloPowerUp.initialize({
 
   'card-buttons': () => [
     {
-      icon: './icons/button.svg',
+      icon: assetUrl('./icons/button.svg'),
       text: 'İşaretler',
       callback: openMarkPopup,
     },
@@ -104,7 +113,7 @@ window.TrelloPowerUp.initialize({
 
   'board-buttons': () => [
     {
-      icon: './icons/button.svg',
+      icon: assetUrl('./icons/button.svg'),
       text: 'İşaret görünümü',
       callback: openBoardPopup,
     },
